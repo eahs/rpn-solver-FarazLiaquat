@@ -112,10 +112,43 @@ namespace RPNSolver
         /// </summary>
         private static void ConvertInfix ()
         {
+            string postfix = "";
+            Stack numbers = new Stack();
+            Stack operators = new Stack();
             Console.Write("Enter an infix expression: ");
             string expression = Console.ReadLine();
+            foreach (char character in expression)
+            {
+                if (Char.IsNumber(character))
+                {
+                    numbers.Push(character);
+                }
+                else  if (character == '+' || character == '-' || character == '*' || character == '/')
+                {
+                    operators.Push(operators);
+                }
+                
+                
+            }
+            var stackArray = operators.ToArray();
+            int k = 0;
+            for (int i = 0; i < expression.Length; i++)
+            {
+                postfix += numbers.Pop();
+                if (postfix.Length == expression.Length)
+                {
+                    break;
+                }
 
-            string postfixExpression = ExpressionService.ConvertInfixToPostfix(expression);
+                postfix += stackArray[stackArray.Length - k];
+                k++;
+            }
+
+
+
+
+
+            string postfixExpression = postfix;
             int solution = ExpressionService.EvaluatePostfix(postfixExpression);
             
             Console.WriteLine($"Postfix expression: {postfixExpression}");
